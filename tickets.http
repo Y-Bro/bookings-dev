@@ -1,0 +1,17 @@
+POST http://bookings.dev/api/tickets HTTP/1.1
+Content-Type: application/json
+
+{
+    "title" : "ticket-3",
+    "price" : 10
+}
+###
+PUT http://bookings.dev/api/tickets/63c908456a7de4a3d6f20795 HTTP/1.1
+Content-Type: application/json
+
+{
+    "price" : 10,
+    "title" : "ticket-2"
+}
+###
+GET http://bookings.dev/api/tickets HTTP/1.1

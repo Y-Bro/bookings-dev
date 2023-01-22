@@ -1,0 +1,61 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+build:
+  artifacts:
+    - image: ybro22/ticketing-auth
+      context: auth
+      sync:
+        manual:
+          - dest: .
+            src: src/**/*.ts
+      docker:
+        dockerfile: Dockerfile
+    - image: ybro22/ticketing-client
+      context: client
+      sync:
+        manual:
+          - dest: .
+            src: "**/*.js"
+      docker:
+        dockerfile: Dockerfile
+    - image: ybro22/ticketing-tickets
+      context: tickets
+      sync:
+        manual:
+          - dest: .
+            src: src/**/*.ts
+      docker:
+        dockerfile: Dockerfile
+    - image: ybro22/ticketing-orders
+      sync:
+        manual:
+          - dest: .
+            src: src/**/*.ts
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+    - image: ybro22/ticketing-expiration
+      context: expiration
+      sync:
+        manual:
+          - dest: .
+            src: src/**/*.ts
+      docker:
+        dockerfile: Dockerfile
+    - image: ybro22/ticketing-payments
+      context: payments
+      sync:
+        manual:
+          - dest: .
+            src: src/**/*.ts
+      docker:
+        dockerfile: Dockerfile
+  local:
+    useDockerCLI: true
+    push: false
+manifests:
+  rawYaml:
+    - ./infra/k8s/*
+deploy:
+  kubectl: {}
+  

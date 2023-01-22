@@ -1,0 +1,10 @@
+POST http://bookings.dev/api/orders HTTP/1.1
+Content-Type: application/json
+
+{
+    "ticketId" : "63c908456a7de4a3d6f20795"
+}
+###
+GET http://bookings.dev/api/orders HTTP/1.1
+###
+DELETE http://bookings.dev/api/orders/63c8f252a56c77a5977aaf16 HTTP/1.1

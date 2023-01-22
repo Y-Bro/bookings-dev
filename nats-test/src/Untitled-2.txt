@@ -1,0 +1,74 @@
+
+1. What was done in building the VMs, specifically the CentOS and Debian VMs listed below. Please provide build documentation?  
+Ans: Apigee vms are created from the instance template created an the config that it uses specifies a debian 10 image.
+
+
+
+
+fc-non-prod-mgmt-vm-us-cental1-a-01 is a centos7 image that is running
+
+fc-prod-mgmt-vm-us-cental1-a-01 is a centos7 image that is running
+
+apigee-mig-l1mh is a Debian 10 image
+
+apigee-mig-p7qr is a Debian 10 image
+
+apigee-mig-wn2g is a Debian 10 image
+
+apigee-mig-wp23 is a Debian 10 image 
+
+2. Can we receive a more specific data flow diagram explaining how entities communicate with each other? 
+
+Image.
+
+
+
+3. Why are the IP subnets in mixed order? Some have us-central region as a lower second octet of address pair, others have us-east region as lower the lower address. 
+Example: us-central1 - 172.19.0.0/16, us-east4 - 172.18.0.0/16 for Private Service Connections(PSC). 
+
+ANS: The criteria was that the ranges of the subnets were choosen according to the ranges which lie outside of 
+the allocated ip address range.
+fc-host-us-central1-subnet-01 172.25.0.0/24 and fc-host-us-east4-subnet-01 172.26.0.0/24
+
+4. How are the sizes of the subnets determined? like /22 /28 for Apigee instances. 
+The sizes of the CIDR ranges are prerequisited for setting up apigee and are internal requirements.
+/22 is an internal ranges for apigee
+
+
+
+
+5. How does Apigee allocate IPs? Is it per request, or can it be multiple per request? (We will need IPs for other requirements, and we would like to use them from the range we provided.)
+
+ANS Apigee is a managed service and IPs are allocated to the instances internally by Apigee itself.
+Once we specify the /22 range for its runtime which lies inside the PSC range, it automatically assigns itself. We'll be able to see the IP address of the instance, but not the nodes. Ip ranges for the nodes are assigned behind the scenes are are invisible to use.
+
+The peering range prefix length for a paid org should be /16 or /20, corresponding to 65536 or 4096 IP addresses respectively.
+
+An evaluation org can only use a prefix length of /22, which corresponds to 1024 IP addresses. The small number of IP addresses limits how much Apigee can scale for an evaluation org. Paid orgs are able to handle much more traffic than evaluation orgs.
+
+
+
+
+
+6. Why is the fc-host-us*-subnets IP range outside the range we specified?
+ANS The subnets had to be created outside the Ip ranges that were specified, because once the ranges were allocated for PSC. It does not let you create subnets lying in that range.
+
+
+
+
+7. How Apigee Ingress communicates with the Apigee Runtime environment (referring to the diagram provided). It would be great to have a quick walkthrough of communication from consumer request to backend services or targets.
+
+
+We need a quick walkthrough on enabling and disabling Cloud Armor preview mode and updating exceptions.
+
+We can't open log links provided in the CRS spreadsheet due to our bank policy. Is there another way we can collect or download these?
+
+How do we audit access levels for service accounts, developers, unauthenticated services, etc., and know what permissions can and cannot be altered?
+
+How do we view and manage alerts, especially security alerts, and monitor the health and performance of different services – APIs, VMs, other cloud resources?
+
+Outside of console logins, what access methodologies should operational staff use to manage the environment – CLI, SDKs, SSH? Same question for developers.
+
+What needs to be done to finish the Okta integration and force all internal and external users through Okta for authentication?
+
+I believe Terraform files were to be sent via Box so I could upload them to GitHub – are those available?

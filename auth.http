@@ -1,0 +1,22 @@
+POST https://bookings.dev/api/users/signin HTTP/1.1
+content-type: application/json
+
+{
+    "email": "1@gmail.com",
+    "password": "abcd"
+}
+###
+GET https://bookings.dev/api/users/currentuser HTTP/1.1
+###
+POST http://bookings.dev/api/users/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "email" : "2@gmail.com",
+    "password" : "abcd"
+}
+###
+POST http://bookings.dev/api/users/signout HTTP/1.1
+
+{}
+
